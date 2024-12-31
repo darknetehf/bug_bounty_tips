@@ -34,6 +34,14 @@ Known caveats:
 - Some users are registered in different names, so their password is repeated more than once but actually represents a unique occurrence
 - Probable pollution: SHA256 hashes
 
+References
+~~~~~~~~~~
+
+Further details about leaked files:
+
+- `Vodagate – vefur Vodafone á íslandi hakkaður <https://www.lappari.com/2013/11/vodagate-vefur-vodafone-a-islandi-hakkadur/>`_
+
+
 "Breach compilation"
 --------------------
 
