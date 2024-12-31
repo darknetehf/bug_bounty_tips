@@ -9,18 +9,44 @@ Description
 
 TLDR: This is a tentative list of most common passwords used by Iceland residents.
 This readme describes the extraction process.
-If you are just interested in the list proper, look in the repo.
+If you are just interested in the lists proper, look in the repo.
+
+**NB: more files may be added a later time, watch this repo to be notified of future changes.**
+
+Files available
+---------------
+
+The following lists are provided:
+
+- most-common-passwords.csv: derived from the "Breach compilation" dump - see below for details
+- vodafone.csv: In November 2013, Vodafone Iceland experienced a data breach attributed to the Turkish hacker group Maxn3y - see below for details
+
+Vodafone Iceland
+----------------
 
 Methodology
------------
+~~~~~~~~~~~
+
+The file vodafone.csv is derived from the "signup" Mysql table after filtering of null passwords etc.
+
+Known caveats:
+
+- Some users are registered in different names, so their password is repeated more than once but actually represents a unique occurrence
+- Probable pollution: SHA256 hashes
+
+"Breach compilation"
+--------------------
+
+Methodology
+~~~~~~~~~~~
 
 Use the "Breach compilation" data dump amd filter passwords associated with an E-mail address ending in .is.
 
 Steps to reproduce
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Get the dump
-~~~~~~~~~~~~
+############
 
 Obtain the "Breach compilation" data dump. As of writing this, the magnet link below is still active:
 
@@ -31,7 +57,7 @@ Obtain the "Breach compilation" data dump. As of writing this, the magnet link b
 Result: 74041 lines
 
 Filtering
-~~~~~~~~~
+#########
 
 Extract lines that contain an E-mail address ending in .is.
 
@@ -40,7 +66,7 @@ Extract lines that contain an E-mail address ending in .is.
    grep --no-filename -ir "\.is:" * | tee breached-is-addresses.csv
 
 Clean up
-~~~~~~~~
+########
 
 A small number of malformed lines have more than two fields, so we just discard them.
 
@@ -49,7 +75,7 @@ A small number of malformed lines have more than two fields, so we just discard 
    awk  'FS=":" { if (NF == 2) { print $0} }' breached-is-addresses.csv > breached-is-addresses.cleaned.csv
 
 Count and sort passwords by frequency
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#####################################
 
 You can use the Python script below to read the cleaned csv file and write back results to another file in CSV format.
 
